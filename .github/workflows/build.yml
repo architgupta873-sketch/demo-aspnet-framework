@@ -10,16 +10,20 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Setup MSBuild
-      uses: microsoft/setup-msbuild@v2
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
 
-    - name: Setup NuGet
-      uses: NuGet/setup-nuget@v2
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v2
 
-    - name: Restore packages
-      run: nuget restore DemoAspNetFramework.sln
+      - name: Restore packages
+        run: nuget restore DemoAspNetFramework.sln
 
-    - name: Build solution
-      run: msbuild DemoAspNetFramework.sln /p:Configuration=Release
+      - name: Build solution
+        run: |
+          msbuild DemoAspNetFramework.sln `
+          /p:Configuration=Release `
+          /p:VisualStudioVersion=17.0 `
+          /p:DeployOnBuild=true
